@@ -15,6 +15,7 @@ use actix_web::middleware::Logger;
 use actix_web::{http::header, web, App, HttpServer};
 use model::AppState;
 
+// Metodo principal, contendo o servidor e as rotas
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     // Inicializa o logger
