@@ -1,59 +1,62 @@
-// use actix_web::*;
-// use serde::Serialize;
-
-// mod routes;
-// use routes::ping::{ping};
-// use routes::info::{info};
-// use routes::catalogo::{catalogo};
-
 mod handler;
 mod model;
-mod response;
+mod schema;
 
 use actix_cors::Cors;
 use actix_web::middleware::Logger;
 use actix_web::{http::header, web, App, HttpServer};
-use model::AppState;
+use dotenv::dotenv;
+use sqlx::mysql::{MySqlPool, MySqlPoolOptions};
 
-// Metodo principal, contendo o servidor e as rotas
+pub struct AppState {
+    db: MySqlPool,
+}
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    // Inicializa o logger
     if std::env::var_os("RUST_LOG").is_none() {
         std::env::set_var("RUST_LOG", "actix_web=info");
     }
+    dotenv().ok();
     env_logger::init();
 
-    let todo_db = AppState::init();
-    let app_data = web::Data::new(todo_db);
+    let database_url = std::env::var("DATABASE_URL").expect("DATABASE_URL must be set");
+    let pool = match MySqlPoolOptions::new()
+        .max_connections(10)
+        .connect(&database_url)
+        .await
+    {
+        Ok(pool) => {
+            println!("✅Connection to the database is successful!");
+            pool
+        }
+        Err(err) => {
+            println!("🔥 Failed to connect to the database: {:?}", err);
+            std::process::exit(1);
+        }
+    };
 
-    // Porta em que o servidor vai rodar
-    let porta = 8080;
-
-    // Mensagem de sucesso
-    println!("🚀 Servidor aberto com sucesso");
-    println!(
-        "Servidor conectado \n link: http://localhost:{}", porta
-    );
+    println!("🚀 Server started successfully");
+    println!("📡 Listening on http://localhost:8080");
 
     HttpServer::new(move || {
         let cors = Cors::default()
             .allowed_origin("http://127.0.0.1:5500")
             .allowed_origin("http://127.0.0.1:5500/")
-            .allowed_methods(vec!["GET", "POST"])
+            .allowed_methods(vec!["GET", "POST", "PATCH", "DELETE"])
             .allowed_headers(vec![
-                header::CONTENT_TYPE
-                // header::AUTHORIZATION,
-                // header::ACCEPT,
+                header::CONTENT_TYPE,
+                header::AUTHORIZATION,
+                header::ACCEPT,
             ])
             .supports_credentials();
         App::new()
-            .app_data(app_data.clone())
+            .app_data(web::Data::new(AppState { db: pool.clone() }))
             .configure(handler::config)
             .wrap(cors)
             .wrap(Logger::default())
     })
-    .bind(("127.0.0.1", porta))?
+    .bind(("127.0.0.1", 8080))?
     .run()
     .await
 }

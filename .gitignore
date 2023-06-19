@@ -1,4 +1,6 @@
 api/target
+api/migrations
+.env
 Cargo.lock
 
 app/assets/css/style.css
