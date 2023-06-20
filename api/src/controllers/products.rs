@@ -1,3 +1,6 @@
+// TODO: Adicionar as funcionalidades dos produtos, do lado da loja, como adicionar, remover, editar, etc.
+// TODO: Montar uma tela de vendas, nela vou ter que ter uma aba de busca, aba de produtos, e separar por categoria
+
 use crate::{
     model::{NoteModel, NoteModelResponse},
     schema::{CreateNoteSchema, FilterOptions, UpdateNoteSchema},
@@ -5,13 +8,6 @@ use crate::{
 };
 use actix_web::{delete, get, patch, post, web, HttpResponse, Responder};
 use serde_json::json;
-
-#[get("/healthchecker")]
-async fn health_checker_handler() -> impl Responder {
-    const MESSAGE: &str = "Build Simple CRUD API with Rust, SQLX, MySQL, and Actix Web";
-
-    HttpResponse::Ok().json(json!({"status": "success","message": MESSAGE}))
-}
 
 #[get("/notes")]
 pub async fn note_list_handler(
@@ -239,9 +235,13 @@ fn filter_db_record(note: &NoteModel) -> NoteModelResponse {
     }
 }
 
+/**
+ * Essa função é responsável por configurar as rotas da controladora
+ * @param conf: &mut web::ServiceConfig
+ * @return void
+ */
 pub fn config(conf: &mut web::ServiceConfig) {
-    let scope = web::scope("/api/v1")
-        .service(health_checker_handler)
+    let scope = web::scope("/api/v1/products")
         .service(note_list_handler)
         .service(create_note_handler)
         .service(get_note_handler)

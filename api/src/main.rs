@@ -8,6 +8,9 @@ use actix_web::{http::header, web, App, HttpServer};
 use dotenv::dotenv;
 use sqlx::mysql::{MySqlPool, MySqlPoolOptions};
 
+mod controllers;
+use controllers::products;
+
 pub struct AppState {
     db: MySqlPool,
 }
@@ -53,6 +56,7 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .app_data(web::Data::new(AppState { db: pool.clone() }))
             .configure(handler::config)
+            .configure(products::config)
             .wrap(cors)
             .wrap(Logger::default())
     })

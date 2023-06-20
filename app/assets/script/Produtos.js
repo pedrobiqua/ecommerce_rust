@@ -32,7 +32,7 @@ function addNote(title, content) {
     };
 
     
-    fetch(url_base + "/api/notes/", {
+    fetch(url_base + "/api/v1/notes/", {
         method: 'POST',
         mode: 'cors',
         headers: {
@@ -51,7 +51,7 @@ function addNote(title, content) {
 
 function getNotes() {
 
-    fetch(url_base + "/api/notes", {
+    fetch(url_base + "/api/v1/notes", {
         method: 'GET',
         mode: 'cors',
         headers: {
