@@ -1,4 +1,4 @@
-# Repositório de API E-commerce em Rust com Front-end utilizando HTML, CSS (Bootstrap 5) e JS
+# Repositório(Projeto) de API E-commerce em Rust com Front-end utilizando HTML, CSS (Bootstrap 5) e JS
 
 #### Autor: Pedro Bianchini de Quadros
 
