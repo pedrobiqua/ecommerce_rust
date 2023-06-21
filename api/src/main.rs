@@ -2,13 +2,15 @@ mod handler;
 mod model;
 mod schema;
 
+mod controllers;
+mod models;
+
 use actix_cors::Cors;
 use actix_web::middleware::Logger;
 use actix_web::{http::header, web, App, HttpServer};
 use dotenv::dotenv;
 use sqlx::mysql::{MySqlPool, MySqlPoolOptions};
 
-mod controllers;
 use controllers::products;
 
 pub struct AppState {

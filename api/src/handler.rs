@@ -240,7 +240,7 @@ fn filter_db_record(note: &NoteModel) -> NoteModelResponse {
 }
 
 pub fn config(conf: &mut web::ServiceConfig) {
-    let scope = web::scope("/api/v1")
+    let scope = web::scope("/api/v1/note")
         .service(health_checker_handler)
         .service(note_list_handler)
         .service(create_note_handler)

@@ -1,11 +1,13 @@
 var url_base = "http://localhost:8080";
 getNotes();
 
+// Executa um evento quando é enviado o formulário
 document.addEventListener("DOMContentLoaded", function() {
     var form = document.getElementById('form_notes');
 
     form.addEventListener("submit", function(event) {
-        event.preventDefault(); // Impede o envio padrão do formulário
+        // Impede o envio padrão do formulário
+        event.preventDefault();
 
         // Obter os valores dos campos do formulário
         var title = document.getElementById("frm_title").value;
@@ -23,7 +25,11 @@ document.addEventListener("DOMContentLoaded", function() {
 });
   
 
-
+/**
+ * Adiciona uma nova nota na API
+ * @param {String} title 
+ * @param {String} content 
+ */
 function addNote(title, content) {
     const data = {
         title: title,
@@ -32,7 +38,7 @@ function addNote(title, content) {
     };
 
     
-    fetch(url_base + "/api/v1/notes/", {
+    fetch(url_base + "/api/v1/note/notes/", {
         method: 'POST',
         mode: 'cors',
         headers: {
@@ -49,9 +55,10 @@ function addNote(title, content) {
     });
 }
 
+// Função para obter os produtos da API
 function getNotes() {
 
-    fetch(url_base + "/api/v1/notes", {
+    fetch(url_base + "/api/v1/note/notes", {
         method: 'GET',
         mode: 'cors',
         headers: {
@@ -68,6 +75,10 @@ function getNotes() {
 
 }
 
+/**
+ * Adiciona os resultados da requisição na página
+ * @param {*} data 
+ */
 function addNotesInHtml(data){
     console.log(data);
     var notes = document.getElementById("notes");
