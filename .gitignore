@@ -4,3 +4,5 @@ api/migrations
 Cargo.lock
 
 app/assets/css/style.css
+app/node_modules
+app/package-lock.json
