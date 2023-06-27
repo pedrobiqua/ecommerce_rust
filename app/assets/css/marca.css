@@ -1,0 +1,8 @@
+.nav-item-custom-1 .nav-link {
+    color: black;
+}
+
+.nav-item-custom-2 .nav-link.active {
+    background-color: black;
+    color: white;
+}
