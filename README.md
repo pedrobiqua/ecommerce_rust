@@ -12,7 +12,7 @@ Este repositório contém uma API E-commerce escrita em Rust, uma linguagem de p
 - Gerenciamento de rotas: Utilizando uma biblioteca de roteamento em Rust, a API define várias rotas para lidar com solicitações HTTP, como obter informações do produto, adicionar itens ao carrinho, efetuar pagamentos, entre outros.
 - Persistência de dados: A API se integra a um banco de dados (por exemplo, PostgreSQL, SQLite) para armazenar e recuperar dados relacionados aos produtos, usuários, pedidos, etc., garantindo uma experiência confiável de compras online.
 
-## Recursos do Front-end com Bootstrap 5
+## Recursos do Front-end com React(Typescript) e Bootstrap 5
 
 - Design responsivo e moderno: O front-end utiliza HTML, CSS (Bootstrap 5) e JavaScript para criar uma interface de usuário atraente e adaptável a diferentes dispositivos e tamanhos de tela.
 - Componentes pré-estilizados: O Bootstrap 5 oferece uma ampla gama de componentes reutilizáveis, como menus de navegação, listas de produtos, formulários de pagamento, modais, etc., facilitando o desenvolvimento e a consistência visual.
